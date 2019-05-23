@@ -28,8 +28,10 @@ Requires: python3
 Requires:	pm-utils
 %endif
 %{?systemd_ordering}
-BuildRequires: systemd
+BuildRequires: bash-completion
 BuildRequires: python3-devel
+BuildRequires: systemd
+BuildRequires: udev
 
 %description
 # autorandr
