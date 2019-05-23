@@ -2,6 +2,7 @@
 %define version 1.8.1
 %define release 1
 
+# pmutils
 %define use_pm_utils 1
 %if 0%{?fedora} > 22
 %define use_pm_utils 0
@@ -10,6 +11,11 @@
 %define use_pm_utils 0
 %endif
 
+# python 2 or 3
+%define py_ver 3
+%if 0%{?rhel}
+%define py_ver 2
+%endif
 
 Summary: Automatically select a display configuration based on connected devices
 Name: %{name}
@@ -23,13 +29,13 @@ Prefix: %{_prefix}
 BuildArch: noarch
 Vendor: Phillip Berndt <phillip.berndt@googlemail.com>
 Url: https://github.com/phillipberndt/autorandr
-Requires: python3
+Requires: python%{py_ver}
 %if 0%{?use_pm_utils}
 Requires:	pm-utils
 %endif
 %{?systemd_ordering}
 BuildRequires: bash-completion
-BuildRequires: python3-devel
+BuildRequires: python%{py_ver}-devel
 BuildRequires: systemd
 BuildRequires: udev
 
@@ -310,7 +316,11 @@ profiles matching multiple (or any) monitors.
 
 %prep
 %setup -n %{name}-%{version} -n %{name}-%{version}
+%if %{py_ver} == 3
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" ./autorandr.py
+%else
+pathfix.py -pni "%{__python2} %{py2_shbang_opts}" ./autorandr.py
+%endif
 
 %install
 make DESTDIR="%{buildroot}" PREFIX=/usr install
