@@ -81,6 +81,7 @@ you can
   for various distributions (RPM and DEB based).
 * Use the [X binary package system](https://wiki.voidlinux.eu/XBPS)' on Void Linux 
 * Build a .deb-file from the source tree using `make deb`.
+* Build a .rpm-file from the source tree using `make rpm`.
 
 We appreciate packaging scripts for other distributions, please file a pull
 request if you write one.
